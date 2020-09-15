@@ -11,6 +11,10 @@
   "files": [
     "dist/"
   ],
+  "keywords": [
+    "Zea",
+    "Point clouds"
+  ],
   "scripts": {
     "build": "rollup -c",
     "build:watch": "rollup -w -c",
