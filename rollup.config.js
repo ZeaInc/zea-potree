@@ -3,17 +3,17 @@ import webWorkerLoader from 'rollup-plugin-web-worker-loader'
 
 import pkg from './package.json'
 
+const external = ['@zeainc/zea-engine']
+
+const plugins = [webWorkerLoader()]
+
 const isProduction = !process.env.ROLLUP_WATCH
-
-const sourcemap = true
-
-const plugins = []
 
 if (isProduction) {
   plugins.push(terser())
 }
 
-const external = ['@zeainc/zea-engine']
+const sourcemap = true
 
 export default [
   // Browser-friendly UMD build.
