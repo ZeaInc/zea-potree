@@ -24,7 +24,7 @@
     "testBrowser": "karma start --single-run karma.conf.js"
   },
   "dependencies": {
-    "@zeainc/zea-engine": "^1.0.7",
+    "@zeainc/zea-engine": "^2.0.0",
     "binaryheap": "^0.0.3",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
