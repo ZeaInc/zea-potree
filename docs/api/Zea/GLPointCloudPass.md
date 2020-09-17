@@ -1,7 +1,14 @@
 <a name="GLPointCloudPass"></a>
 
 ### GLPointCloudPass 
-The GLPointCloudPass Class
+GLPointCloudPass abstracts the rendering of cloud point geometries to the screen.
+
+**Parameters**
+**MinimumNodeVSize(`NumberParameter`)**
+**VisiblePointsTarget(`NumberParameter`)**
+
+**Events**
+* *updated:* Triggers every time one of the Point Cloud Asset changes.
 
 
 **Extends**: <code>GLPass</code>  
@@ -27,25 +34,25 @@ Creates an instance of GLPointCloudPass.
 <a name="GLPointCloudPass+init"></a>
 
 ### init
-The init method.
+Initializes the rendering of the point cloud geometries hosted.
 
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| renderer | <code>any</code> | The renderer param. |
-| passIndex | <code>any</code> | The passIndex param. |
+| renderer | <code>GLRenderer</code> | The renderer param. |
+| passIndex | <code>number</code> | The passIndex param. |
 
 <a name="GLPointCloudPass+addPotreeasset"></a>
 
 ### addPotreeasset
-The addPotreeasset method
+Adds a new point cloud asset the the list of assets rendered by this abstraction.
 
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| pointcloudAsset | <code>\*</code> | The pointcloudAsset value |
+| pointcloudAsset | <code>[PointCloudAsset](api/Zea/PointCloudAsset.md)</code> | The pointcloudAsset value |
 
 <a name="GLPointCloudPass+setViewport"></a>
 
@@ -56,7 +63,7 @@ The setViewport method
 
 | Param | Type | Description |
 | --- | --- | --- |
-| viewport | <code>\*</code> | The viewport value |
+| viewport | <code>GLViewport</code> | The viewport value |
 
 <a name="GLPointCloudPass+updateVisibilityStructures"></a>
 
@@ -68,7 +75,7 @@ The updateVisibilityStructures method
 
 | Param | Type | Description |
 | --- | --- | --- |
-| priorityQueue | <code>\*</code> | The priorityQueue value |
+| priorityQueue | <code>array</code> | The priorityQueue value |
 
 <a name="GLPointCloudPass+updateVisibility"></a>
 
@@ -86,7 +93,7 @@ The computeVisibilityTextureData method
 
 | Param | Type | Description |
 | --- | --- | --- |
-| nodes | <code>\*</code> | the nodes value |
+| nodes | <code>array</code> | the nodes value |
 
 <a name="GLPointCloudPass+draw"></a>
 
@@ -97,7 +104,7 @@ The draw method.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| renderstate | <code>any</code> | The renderstate param. |
+| renderstate | <code>object</code> | The renderstate param. |
 
 <a name="GLPointCloudPass+drawHighlightedGeoms"></a>
 
@@ -108,7 +115,7 @@ The drawHighlightedGeoms method.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| renderstate | <code>any</code> | The renderstate param. |
+| renderstate | <code>object</code> | The renderstate param. |
 
 <a name="GLPointCloudPass+drawGeomData"></a>
 
@@ -119,7 +126,7 @@ The drawGeomData method.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| renderstate | <code>any</code> | The renderstate param. |
+| renderstate | <code>object</code> | The renderstate param. |
 
 <a name="GLPointCloudPass+getGeomItemAndDist"></a>
 
@@ -130,5 +137,5 @@ The getGeomItemAndDist method.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| geomData | <code>any</code> | The geomData param. |
+| geomData | <code>array</code> | The geomData param. |
 

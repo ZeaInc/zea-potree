@@ -1,7 +1,16 @@
 <a name="PointCloudAsset"></a>
 
 ### PointCloudAsset 
-The PointCloudAsset Class
+PointCloudAsset is an application of Tree Items with rendering and material capabilities.
+In this case, it is an specification that supports Point clouds Octree geometries.
+
+**Parameters**
+*  **NumPoints(`NumberParameter`):** Sets the number of points in the octree geometry
+* **PointSize(`NumberParameter`):** Sets the size of the individual points inside the geometry
+* **PointSizeAttenuation(`NumberParameter`):**
+
+**Events**
+* **loaded:** Triggered after the asset is loaded
 
 
 **Extends**: <code>AssetItem</code>  
@@ -10,7 +19,7 @@ The PointCloudAsset Class
     * [new PointCloudAsset()](#new-PointCloudAsset)
     * [getGlobalMat4() ⇒ <code>Mat4</code>](#getGlobalMat4)
     * [setGeometry(pcoGeometry)](#setGeometry)
-    * [getGeometry() ⇒ <code>any</code>](#getGeometry)
+    * [getGeometry() ⇒ <code>PointCloudOctreeGeometry</code>](#getGeometry)
     * [loadPointCloud(path, name) ⇒ <code>Promise</code>](#loadPointCloud)
 
 <a name="new_PointCloudAsset_new"></a>
@@ -28,31 +37,31 @@ The getGlobalMat4 method
 <a name="PointCloudAsset+setGeometry"></a>
 
 ### setGeometry
-the setGeometry method
+Sets asset's Point Cloud Geometry data.
 
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| pcoGeometry | <code>any</code> | The pcoGeometry value |
+| pcoGeometry | <code>PointCloudOctreeGeometry</code> | The pcoGeometry value |
 
 <a name="PointCloudAsset+getGeometry"></a>
 
 ### getGeometry
-The getGeometry method
+Returns asset's point cloud Octree geometry
 
 
-**Returns**: <code>any</code> - - The pcoGeometry  
+**Returns**: <code>PointCloudOctreeGeometry</code> - - The pcoGeometry  
 <a name="PointCloudAsset+loadPointCloud"></a>
 
 ### loadPointCloud
-The loadPointCloud method
+Loads a Point Cloud Octree Geometry from the specified url.
 
 
 **Returns**: <code>Promise</code> - - The result  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| path | <code>\*</code> | The path value |
-| name | <code>\*</code> | The name value |
+| path | <code>string</code> | The path value |
+| name | <code>string</code> | The name value |
 

@@ -32,12 +32,11 @@ scene.getRoot().addChild(pointcloudAsset);
 
 > See the live example
 
-[Labels](./load-a-point-cloud.html ':include :type=iframe width=100% height=800px')
-
-<div class="download-section">
-  <a class="download-btn" title="Download"
-    onClick="downloadTutorial('load-a-point-cloud.zip', ['tutorials/load-a-point-cloud.html'])" download>
-    Download
-  </a>
+<div class="glitch-embed-wrap" style="height: 420px; width: 100%;">
+  <iframe
+    src="https://glitch.com/embed/#!/embed/zea-load-a-point-cloud?path=index.html&previewSize=100"
+    title="zea-load-a-point-cloud on Glitch"
+    allow="geolocation; microphone; camera; midi; vr; encrypted-media"
+    style="height: 100%; width: 100%; border: 0;">
+  </iframe>
 </div>
-<br>

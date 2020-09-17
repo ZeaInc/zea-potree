@@ -7,7 +7,14 @@ import { PotreePointsShader, PotreePointsGeomDataShader, PotreePointsHilighlight
 import { LRU } from '../LRU.js'
 
 /**
- * The GLPointCloudPass Class
+ * GLPointCloudPass abstracts the rendering of cloud point geometries to the screen.
+ *
+ * **Parameters**
+ * **MinimumNodeVSize(`NumberParameter`)**
+ * **VisiblePointsTarget(`NumberParameter`)**
+ *
+ * **Events**
+ * * *updated:* Triggers every time one of the Point Cloud Asset changes.
  *
  * @extends {GLPass}
  */
@@ -27,12 +34,12 @@ class GLPointCloudPass extends GLPass {
     this.visibleNodesNeedUpdating = false
 
     // Size, not in pixels, but a fraction of scnreen V height.
-    const minimumNodeVSizeParam = this.addParameter(new NumberParameter('minimumNodeVSize', 0.0))
+    const minimumNodeVSizeParam = this.addParameter(new NumberParameter('MinimumNodeVSize', 0.0))
     minimumNodeVSizeParam.on('valueChanged', () => {
       this.minimumNodeVSize = minimumNodeVSizeParam.getValue()
     })
 
-    const visiblePointsTargetParam = this.addParameter(new NumberParameter('visiblePointsTarget', 0))
+    const visiblePointsTargetParam = this.addParameter(new NumberParameter('VisiblePointsTarget', 0))
     visiblePointsTargetParam.on('valueChanged', () => {
       this.pointBudget = visiblePointsTargetParam.getValue()
       this.lru.pointLoadLimit = this.pointBudget * 2
@@ -47,11 +54,12 @@ class GLPointCloudPass extends GLPass {
     visiblePointsTargetParam.setValue(2 * 1000 * 1000)
     // pointSizeParam.setValue(1.25)
   }
-  
+
   /**
-   * The init method.
-   * @param {any} renderer - The renderer param.
-   * @param {any} passIndex - The passIndex param.
+   * Initializes the rendering of the point cloud geometries hosted.
+   *
+   * @param {GLRenderer} renderer - The renderer param.
+   * @param {number} passIndex - The passIndex param.
    */
   init(renderer, passIndex) {
     super.init(renderer, passIndex)
@@ -96,9 +104,9 @@ class GLPointCloudPass extends GLPass {
   }
 
   /**
-   * The addPotreeasset method
+   * Adds a new point cloud asset the the list of assets rendered by this abstraction.
    *
-   * @param {*} pointcloudAsset - The pointcloudAsset value
+   * @param {PointCloudAsset} pointcloudAsset - The pointcloudAsset value
    */
   addPotreeasset(pointcloudAsset) {
     const __bindAsset = (pointcloudAsset) => {
@@ -124,11 +132,11 @@ class GLPointCloudPass extends GLPass {
   removePotreeasset(pointcloudAsset) {}
 
   // ///////////////////////////////////
-  // Visiblity
+  // Visibility
   /**
    * The setViewport method
    *
-   * @param {*} viewport - The viewport value
+   * @param {GLViewport} viewport - The viewport value
    */
   setViewport(viewport) {
     this.viewport = viewport
@@ -144,7 +152,7 @@ class GLPointCloudPass extends GLPass {
   /**
    * The updateVisibilityStructures method
    *
-   * @param {*} priorityQueue - The priorityQueue value
+   * @param {array} priorityQueue - The priorityQueue value
    * @return {array} - The result
    */
   updateVisibilityStructures(priorityQueue) {
@@ -311,7 +319,7 @@ class GLPointCloudPass extends GLPass {
   /**
    * The computeVisibilityTextureData method
    *
-   * @param {*} nodes - the nodes value
+   * @param {array} nodes - the nodes value
    * @return {Map} - The result
    */
   computeVisibilityTextureData(nodes) {
@@ -372,7 +380,7 @@ class GLPointCloudPass extends GLPass {
 
   /**
    * The draw method.
-   * @param {any} renderstate - The renderstate param.
+   * @param {object} renderstate - The renderstate param.
    */
   draw(renderstate) {
     if (this.glpointcloudAssets.length == 0) return
@@ -401,7 +409,7 @@ class GLPointCloudPass extends GLPass {
 
   /**
    * The drawHighlightedGeoms method.
-   * @param {any} renderstate - The renderstate param.
+   * @param {object} renderstate - The renderstate param.
    */
   drawHighlightedGeoms(renderstate) {
     if (this.hilghlightedAssets.length == 0) return
@@ -423,7 +431,7 @@ class GLPointCloudPass extends GLPass {
 
   /**
    * The drawGeomData method.
-   * @param {any} renderstate - The renderstate param.
+   * @param {object} renderstate - The renderstate param.
    */
   drawGeomData(renderstate) {
     if (this.glpointcloudAssets.length == 0) return
@@ -455,7 +463,7 @@ class GLPointCloudPass extends GLPass {
 
   /**
    * The getGeomItemAndDist method.
-   * @param {any} geomData - The geomData param.
+   * @param {array} geomData - The geomData param.
    */
   getGeomItemAndDist(geomData) {
     const itemId = Math.round(geomData[1])
@@ -469,7 +477,6 @@ class GLPointCloudPass extends GLPass {
     }
   }
 }
-
 
 export default GLPointCloudPass
 export { GLPointCloudPass }
