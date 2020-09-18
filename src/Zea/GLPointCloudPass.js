@@ -134,7 +134,7 @@ class GLPointCloudPass extends GLPass {
   // ///////////////////////////////////
   // Visibility
   /**
-   * The setViewport method
+   * Sets viewport that is used by current abstraction.
    *
    * @param {GLViewport} viewport - The viewport value
    */
