@@ -50,7 +50,7 @@ class GLPointCloudPass extends GLPass {
     visiblePointsTargetParam.setValue(2 * 1000 * 1000)
     // pointSizeParam.setValue(1.25)
   }
-  
+
   /**
    * The init method.
    * @param {any} renderer - The renderer param.
@@ -89,31 +89,30 @@ class GLPointCloudPass extends GLPass {
       format: 'RGBA',
       filter: 'NEAREST',
       width: this.viewportSize[0],
-      height:this.viewportSize[1],
+      height: this.viewportSize[1],
       depthType: gl.FLOAT,
       depthFormat: gl.DEPTH_COMPONENT,
-      depthInternalFormat: gl.DEPTH_COMPONENT32F
-    });
-    this.primaryRenderTarget.clearColor.a = 99999.0;
-    
+      depthInternalFormat: gl.DEPTH_COMPONENT32F,
+    })
+    this.primaryRenderTarget.clearColor.a = 99999.0
+
     this.smoothedRenderTarget = new GLRenderTarget(gl, {
       type: 'FLOAT',
       format: 'RGBA',
       filter: 'NEAREST',
       width: this.viewportSize[0],
-      height:this.viewportSize[1],
+      height: this.viewportSize[1],
       depthType: gl.FLOAT,
       depthFormat: gl.DEPTH_COMPONENT,
-      depthInternalFormat: gl.DEPTH_COMPONENT32F
-    });
-    this.smoothedRenderTarget.clearColor.a = 99999.0;
-    
+      depthInternalFormat: gl.DEPTH_COMPONENT32F,
+    })
+    this.smoothedRenderTarget.clearColor.a = 99999.0
+
     this.quad = new GLMesh(gl, new Plane(1, 1))
     this.eyeDomeLightingShader = new EyeDomeLightingShader(gl)
     this.smoothingShader = new SmoothingShader(gl)
-    
   }
-  
+
   /**
    * The itemAddedToScene method is called on each pass when a new item
    * is added to the scene, and the renderer must decide how to render it.
@@ -146,7 +145,6 @@ class GLPointCloudPass extends GLPass {
     }
     return false
   }
-
 
   /**
    * The addPotreeasset method
@@ -189,15 +187,17 @@ class GLPointCloudPass extends GLPass {
       this.visibleNodesNeedUpdating = true
     })
     this.viewport.on('resized', (event) => {
-      
-      const {width, height} = event
+      const { width, height } = event
+
       this.viewportSize = [width, height]
+
       if (this.primaryRenderTarget) {
         this.primaryRenderTarget.resize(width, height)
       }
       if (this.smoothedRenderTarget) {
         this.smoothedRenderTarget.resize(width, height)
       }
+
       this.visibleNodesNeedUpdating = true
     })
     this.visibleNodesNeedUpdating = true
@@ -447,7 +447,6 @@ class GLPointCloudPass extends GLPass {
 
     const gl = this.__gl
 
-
     gl.disable(gl.BLEND)
     gl.depthMask(true)
     gl.enable(gl.DEPTH_TEST)
@@ -461,31 +460,28 @@ class GLPointCloudPass extends GLPass {
 
     if (this.eyeDomeLighting) {
       if (!this.primaryRenderTarget) {
-        this.initEyeDomeLighting();
+        this.initEyeDomeLighting()
       }
 
       this.primaryRenderTarget.bindForWriting(renderstate, true)
- 
+
       // RENDER
       this.glpointcloudAssets.forEach((a) => a.draw(renderstate))
       this.primaryRenderTarget.unbindForWriting(renderstate)
 
       // SMOOTHING
       {
-        
         this.smoothedRenderTarget.bindForWriting(renderstate, true)
         this.smoothingShader.bind(renderstate)
-        
+
         const unifs = renderstate.unifs
         this.primaryRenderTarget.bindColorTexture(renderstate, unifs.colorTexture)
-        
-        if (unifs.viewportSize)
-        gl.uniform2f(unifs.viewportSize.location, this.viewportSize[0], this.viewportSize[1])
-        if (unifs.smoothRadius)
-        gl.uniform1f(unifs.smoothRadius.location, 1.0)
-        
+
+        if (unifs.viewportSize) gl.uniform2f(unifs.viewportSize.location, this.viewportSize[0], this.viewportSize[1])
+        if (unifs.smoothRadius) gl.uniform1f(unifs.smoothRadius.location, 1.0)
+
         this.quad.bindAndDraw(renderstate)
-        
+
         this.smoothedRenderTarget.unbindForWriting(renderstate)
       }
 
@@ -495,13 +491,11 @@ class GLPointCloudPass extends GLPass {
 
         const unifs = renderstate.unifs
         this.smoothedRenderTarget.bindColorTexture(renderstate, unifs.uEDLColor)
-        
+
         gl.uniform2f(unifs.viewportSize.location, this.viewportSize[0], this.viewportSize[1])
-        if (unifs.edlStrength)
-        gl.uniform1f(unifs.edlStrength.location, 0.5)
-        if (unifs.radius)
-        gl.uniform1f(unifs.radius.location, 1.0)
-        
+        if (unifs.edlStrength) gl.uniform1f(unifs.edlStrength.location, 0.5)
+        if (unifs.radius) gl.uniform1f(unifs.radius.location, 1.0)
+
         this.quad.bindAndDraw(renderstate)
       }
     } else {
@@ -580,7 +574,6 @@ class GLPointCloudPass extends GLPass {
     }
   }
 }
-
 
 export default GLPointCloudPass
 export { GLPointCloudPass }
