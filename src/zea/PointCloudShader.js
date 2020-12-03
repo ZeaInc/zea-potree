@@ -1,6 +1,6 @@
 import { GLShader, Registry, shaderLibrary } from '@zeainc/zea-engine'
 
-class PotreePointsShader extends GLShader {
+class PointCloudShader extends GLShader {
   constructor(gl) {
     super(gl)
     this.__shaderStages['VERTEX_SHADER'] = shaderLibrary.parseShader(
@@ -31,6 +31,7 @@ uniform float PointSize;
 varying vec4 v_color;
 varying vec2 v_texCoord;
 varying vec3 v_viewPos;
+varying float	v_logDepth;
 
 // ---------------------
 // OCTREE
@@ -166,11 +167,12 @@ void main(void) {
   vec4 pos = vec4(positions + offset, 1.);
   mat4 modelViewMatrix = viewMatrix * modelMatrix;
   vec4 viewPos = modelViewMatrix * pos;
-
+  
 	float pointSize = getPointSize(positions);
 
   viewPos += vec4(vec3(quadPointPos, 0.0) * pointSize, 0.);
   v_viewPos = -viewPos.xyz;
+  v_logDepth = log2(v_viewPos.z);
 
   gl_Position = projectionMatrix * viewPos;
 
@@ -190,6 +192,8 @@ uniform color BaseColor;
 /* VS Outputs */
 varying vec4 v_color;
 varying vec2 v_texCoord;
+varying vec3 v_viewPos;
+varying float	v_logDepth;
 
 #ifdef ENABLE_ES3
 out vec4 fragColor;
@@ -201,12 +205,13 @@ void main(void) {
   vec4 fragColor;
 #endif
 
+// make the points round..
   if(length(v_texCoord - 0.5) > 0.5)
     discard;
 
   fragColor = v_color;
-  fragColor.a = 1.0;
-
+  fragColor.a = v_logDepth;
+  
 #ifndef ENABLE_ES3
   gl_FragColor = fragColor;
 #endif
@@ -216,17 +221,17 @@ void main(void) {
   }
 
   static getGeomDataShaderName() {
-    return 'PotreePointsGeomDataShader'
+    return 'PointCloudGeomDataShader'
   }
 
   static getSelectedShaderName() {
-    return 'PotreePointsHilighlightShader'
+    return 'PointCloudHilighlightShader'
   }
 }
 
-Registry.register('PotreePointsShader', PotreePointsShader)
+Registry.register('PointCloudShader', PointCloudShader)
 
-class PotreePointsGeomDataShader extends PotreePointsShader {
+class PointCloudGeomDataShader extends PointCloudShader {
   constructor(gl) {
     super(gl)
 
@@ -272,9 +277,9 @@ void main(void) {
   }
 }
 
-Registry.register('PotreePointsGeomDataShader', PotreePointsGeomDataShader)
+Registry.register('PointCloudGeomDataShader', PointCloudGeomDataShader)
 
-class PotreePointsHilighlightShader extends PotreePointsShader {
+class PointCloudHilighlightShader extends PointCloudShader {
   constructor(gl) {
     super(gl)
 
@@ -314,6 +319,6 @@ void main(void) {
   }
 }
 
-Registry.register('PotreePointsHilighlightShader', PotreePointsHilighlightShader)
+Registry.register('PointCloudHilighlightShader', PointCloudHilighlightShader)
 
-export { PotreePointsShader, PotreePointsGeomDataShader, PotreePointsHilighlightShader }
+export { PointCloudShader, PointCloudGeomDataShader, PointCloudHilighlightShader }
