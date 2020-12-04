@@ -1,10 +1,12 @@
-import { Frustum, NumberParameter, GLTexture2D, GLPass } from '@zeainc/zea-engine'
+import { Frustum, NumberParameter, GLTexture2D, GLPass, GLRenderTarget, GLMesh, Plane, Color } from '@zeainc/zea-engine'
 
 import { PointCloudAsset } from './PointCloudAsset.js'
 import { GLPointCloudAsset } from './GLPointCloudAsset.js'
 import { BinaryHeap } from '../../libs/other/BinaryHeap.js'
-import { PotreePointsShader, PotreePointsGeomDataShader, PotreePointsHilighlightShader } from './PotreePointsShader.js'
+import { PointCloudShader, PointCloudGeomDataShader, PointCloudHilighlightShader } from './PointCloudShader.js'
 import { LRU } from '../LRU.js'
+import { EyeDomeLightingShader } from './EyeDomeLightingShader.js'
+import { SmoothingShader } from './SmoothingShader.js'
 
 /**
  * GLPointCloudPass abstracts the rendering of cloud point geometries to the screen.
@@ -28,6 +30,7 @@ class GLPointCloudPass extends GLPass {
     this.visiblePointsTarget = 2 * 1000 * 1000
     this.lru = new LRU()
     this.minimumNodeVSize = 0.2
+    this.eyeDomeLighting = false
     this.glpointcloudAssets = []
     this.hilghlightedAssets = []
 
@@ -64,9 +67,9 @@ class GLPointCloudPass extends GLPass {
   init(renderer, passIndex) {
     super.init(renderer, passIndex)
     const gl = renderer.gl
-    this.glshader = new PotreePointsShader(gl)
-    this.glgeomdataShader = new PotreePointsGeomDataShader(gl)
-    this.glhighlightShader = new PotreePointsHilighlightShader(gl)
+    this.glshader = new PointCloudShader(gl)
+    this.glgeomdataShader = new PointCloudGeomDataShader(gl)
+    this.glhighlightShader = new PointCloudHilighlightShader(gl)
 
     const size = 2048
     const data = new Uint8Array(size * 4)
@@ -83,24 +86,72 @@ class GLPointCloudPass extends GLPass {
       data,
     })
 
-    this.__renderer.registerPass(
-      (treeItem) => {
-        if (treeItem instanceof PointCloudAsset) {
-          this.addPotreeasset(treeItem)
-          return true
-        }
-        return false
-      },
-      (treeItem) => {
-        if (treeItem instanceof PointCloudAsset) {
-          this.removePotreeasset(treeItem)
-          return true
-        }
-        return false
-      }
-    )
-
     this.setViewport(renderer.getViewport())
+  }
+
+  initEyeDomeLighting() {
+    const gl = this.__gl
+
+    this.primaryRenderTarget = new GLRenderTarget(gl, {
+      type: 'FLOAT',
+      format: 'RGBA',
+      filter: 'NEAREST',
+      width: this.viewportSize[0],
+      height: this.viewportSize[1],
+      depthType: gl.FLOAT,
+      depthFormat: gl.DEPTH_COMPONENT,
+      depthInternalFormat: gl.DEPTH_COMPONENT32F,
+    })
+    this.primaryRenderTarget.clearColor.a = 99999.0
+
+    this.smoothedRenderTarget = new GLRenderTarget(gl, {
+      type: 'FLOAT',
+      format: 'RGBA',
+      filter: 'NEAREST',
+      width: this.viewportSize[0],
+      height: this.viewportSize[1],
+      depthType: gl.FLOAT,
+      depthFormat: gl.DEPTH_COMPONENT,
+      depthInternalFormat: gl.DEPTH_COMPONENT32F,
+    })
+    this.smoothedRenderTarget.clearColor.a = 99999.0
+
+    this.quad = new GLMesh(gl, new Plane(1, 1))
+    this.eyeDomeLightingShader = new EyeDomeLightingShader(gl)
+    this.smoothingShader = new SmoothingShader(gl)
+  }
+
+  /**
+   * The itemAddedToScene method is called on each pass when a new item
+   * is added to the scene, and the renderer must decide how to render it.
+   * It allows Passes to select geometries to handle the drawing of.
+   * @param {TreeItem} treeItem - The treeItem value.
+   * @param {object} rargs - Extra return values are passed back in this object.
+   * The object contains a parameter 'continueInSubTree', which can be set to false,
+   * so the subtree of this node will not be traversed after this node is handled.
+   * @return {Boolean} - The return value.
+   */
+  itemAddedToScene(treeItem, rargs) {
+    if (treeItem instanceof PointCloudAsset) {
+      this.addPotreeasset(treeItem)
+      return true
+    }
+    return false
+  }
+
+  /**
+   * The itemRemovedFromScene method is called on each pass when aa item
+   * is removed to the scene, and the pass must handle cleaning up any resources.
+   * @param {TreeItem} treeItem - The treeItem value.
+   * @param {object} rargs - Extra return values are passed back in this object.
+   * @return {Boolean} - The return value.
+   */
+  itemRemovedFromScene(treeItem, rargs) {
+    if (treeItem instanceof PointCloudAsset) {
+      this.removePotreeasset(treeItem)
+      return true
+    }
+    return false
   }
 
   /**
@@ -143,10 +194,22 @@ class GLPointCloudPass extends GLPass {
     this.viewport.on('viewChanged', () => {
       this.visibleNodesNeedUpdating = true
     })
-    this.viewport.on('resized', () => {
+    this.viewport.on('resized', (event) => {
+      const { width, height } = event
+
+      this.viewportSize = [width, height]
+
+      if (this.primaryRenderTarget) {
+        this.primaryRenderTarget.resize(width, height)
+      }
+      if (this.smoothedRenderTarget) {
+        this.smoothedRenderTarget.resize(width, height)
+      }
+
       this.visibleNodesNeedUpdating = true
     })
     this.visibleNodesNeedUpdating = true
+    this.viewportSize = [viewport.getWidth(), viewport.getHeight()]
   }
 
   /**
@@ -403,8 +466,50 @@ class GLPointCloudPass extends GLPass {
 
     // gl.uniform1f(PointSize.location, this.pointSize);
 
-    // RENDER
-    this.glpointcloudAssets.forEach((a) => a.draw(renderstate))
+    if (this.eyeDomeLighting) {
+      if (!this.primaryRenderTarget) {
+        this.initEyeDomeLighting()
+      }
+
+      this.primaryRenderTarget.bindForWriting(renderstate, true)
+
+      // RENDER
+      this.glpointcloudAssets.forEach((a) => a.draw(renderstate))
+      this.primaryRenderTarget.unbindForWriting(renderstate)
+
+      // SMOOTHING
+      {
+        this.smoothedRenderTarget.bindForWriting(renderstate, true)
+        this.smoothingShader.bind(renderstate)
+
+        const unifs = renderstate.unifs
+        this.primaryRenderTarget.bindColorTexture(renderstate, unifs.colorTexture)
+
+        if (unifs.viewportSize) gl.uniform2f(unifs.viewportSize.location, this.viewportSize[0], this.viewportSize[1])
+        if (unifs.smoothRadius) gl.uniform1f(unifs.smoothRadius.location, 1.0)
+
+        this.quad.bindAndDraw(renderstate)
+
+        this.smoothedRenderTarget.unbindForWriting(renderstate)
+      }
+
+      // EYE DOME LIGHTING
+      {
+        this.eyeDomeLightingShader.bind(renderstate)
+
+        const unifs = renderstate.unifs
+        this.smoothedRenderTarget.bindColorTexture(renderstate, unifs.uEDLColor)
+
+        gl.uniform2f(unifs.viewportSize.location, this.viewportSize[0], this.viewportSize[1])
+        if (unifs.edlStrength) gl.uniform1f(unifs.edlStrength.location, 0.5)
+        if (unifs.radius) gl.uniform1f(unifs.radius.location, 1.0)
+
+        this.quad.bindAndDraw(renderstate)
+      }
+    } else {
+      // RENDER
+      this.glpointcloudAssets.forEach((a) => a.draw(renderstate))
+    }
   }
 
   /**
