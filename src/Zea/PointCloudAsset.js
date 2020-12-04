@@ -4,7 +4,16 @@ import { POCLoader } from '../loader/POCLoader'
 // Note: replaces PointCloudOctree.
 //
 /**
- * The PointCloudAsset Class
+ * PointCloudAsset is an application of Tree Items with rendering and material capabilities.
+ * In this case, it is an specification that supports Point clouds Octree geometries.
+ *
+ * **Parameters**
+ * *  **Num Points(`NumberParameter`):** Sets the number of points in the octree geometry
+ * * **Point Size(`NumberParameter`):** Sets the size of the individual points inside the geometry
+ * * **Point Size Attenuation(`NumberParameter`):**
+ *
+ * **Events**
+ * * **loaded:** Triggered after the asset is loaded
  *
  * @extends {AssetItem}
  */
@@ -15,7 +24,7 @@ class PointCloudAsset extends AssetItem {
   constructor() {
     super()
 
-    this.pointBudget = 5 * 1000 * 1000
+    this.pointBudget = 5 * 1000 * 100
     this.minimumNodeVSize = 0.2 // Size, not in pixels, but a fraction of screen V height.
     this.level = 0
     this.visibleNodes = []
@@ -29,7 +38,7 @@ class PointCloudAsset extends AssetItem {
     // })
     // this.addParameter(new NumberParameter('Version', 0))
     this.addParameter(new NumberParameter('Num Points', 0))
-    this.addParameter(new NumberParameter('Point Size', 1.1))
+    this.addParameter(new NumberParameter('Point Size', 1))
     this.addParameter(new NumberParameter('Point Size Attenuation', 1.0))
   }
 
@@ -45,7 +54,7 @@ class PointCloudAsset extends AssetItem {
   /**
    * The _cleanBoundingBox method
    *
-   * @param {*} bbox - 
+   * @param {Box3} bbox -
    * @return {Box3} - The cleaned bounding box
    * @private
    */
@@ -61,9 +70,9 @@ class PointCloudAsset extends AssetItem {
   }
 
   /**
-   * the setGeometry method
+   * Sets asset's Point Cloud Geometry data.
    *
-   * @param {any} pcoGeometry - The pcoGeometry value
+   * @param {PointCloudOctreeGeometry} pcoGeometry - The pcoGeometry value
    */
   setGeometry(pcoGeometry) {
     this.pcoGeometry = pcoGeometry
@@ -85,9 +94,9 @@ class PointCloudAsset extends AssetItem {
   }
 
   /**
-   * The getGeometry method
+   * Returns asset's point cloud Octree geometry
    *
-   * @return {any} - The pcoGeometry
+   * @return {PointCloudOctreeGeometry} - The pcoGeometry
    */
   getGeometry() {
     return this.pcoGeometry
@@ -95,10 +104,10 @@ class PointCloudAsset extends AssetItem {
 
   // // Load and add point cloud to scene
   /**
-   * The loadPointCloud method
+   * Loads a Point Cloud Octree Geometry from the specified url.
    *
-   * @param {*} path - The path value
-   * @param {*} name - The name value
+   * @param {string} path - The path value
+   * @param {string} name - The name value
    * @return {Promise} - The result
    */
   loadPointCloud(path, name) {

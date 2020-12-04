@@ -1,81 +1,79 @@
+# Zea PointClouds
 
-# README
+[![NPM Package][npm]][npm-url]
+[![Build Size][build-size]][build-size-url]
+[![NPM Downloads][npm-downloads]][npmtrends-url]
 
-* [Getting Started](./docs/getting_started.md)
+# Introduction
+Zea Point Clouds is a plug-in for [Zea Engine](https://docs.zea.live/zea-engine) that enables large point clouds rendering. It is based on [Potree](https://github.com/potree/potree/) with modifications to integrate into the [Zea Engine](https://docs.zea.live/zea-engine) Framework.
+</br>
+</br>
+</br>
 
-## About
+# Documentation
+Full documentation with concepts, tutorials, live examples, API documentation and more; can be found at the zea ux docs site:
+[https://docs.zea.live/zea-pointclouds](https://docs.zea.live/zea-pointclouds)
 
-Potree is a free open-source WebGL based point cloud renderer for large point clouds.
-It is based on the [TU Wien Scanopy project](https://www.cg.tuwien.ac.at/research/projects/Scanopy/)
-and it was part of the [Harvest4D Project](https://harvest4d.org/).
+These docs allow developers to get started with the Zea UX by downloading free and open-source demo content and using Zea's publicly distributed client-side libraries.
+</br>
+</br>
+</br>
 
+# Licensing
+The Zea pointclouds in is under a [`MIT`](https://en.wikipedia.org/wiki/MIT_License) license.
+</br>
+</br>
+</br>
 
-<a href="http://potree.org/wp/demo/" target="_blank"> ![](./docs/images/potree_screens.png) </a>
+# Add it to your project
+The process to add Zea pointclouds to your projects is easy. 
 
-Newest information and work in progress is usually available on [twitter](https://twitter.com/m_schuetz)
+## *Using CDNs*
+For static websites or quick implementation you can always use CDNs like JsDelivr or Unpkg:
 
-Contact: Markus Schütz (mschuetz@potree.org)
-
-Reference: [Potree: Rendering Large Point Clouds in Web Browsers](https://www.cg.tuwien.ac.at/research/publications/2016/SCHUETZ-2016-POT/SCHUETZ-2016-POT-thesis.pdf)
-
-## Getting Started
-
-### Build and Run
-
-Make sure you have [node.js](http://nodejs.org/) installed
-
-Install all dependencies, as specified in package.json, 
-then, install the gulp build tool:
-
-    cd <potree_directory>
-    yarn install
-    yarn build:dev
-
-Use the ```yarn build:dev``` command to 
-
-* create ./dist 
-* watch for changes to the source code and automatically create a new build on change
-* start a web server at localhost:1234. 
-
+### *JsDelivr*
+```html
+<script crossorigin src="https://cdn.jsdelivr.net/npm/@zeainc/zea-pointclouds/dist/index.umd.min.js"></script>
 ```
-gulp watch
+### *Unpkg*
+```html
+<script crossorigin src="https://unpkg.com/@zeainc/zea-pointclouds/dist/index.umd.js"></script>
+```
+### *Use it*
+```html
+<script>
+  const { PointCloudAsset } = globalThis.zeapointclouds
+</script>
 ```
 
-Go to http://localhost:1234/examples/ to test the examples.
+## *As a Module*
+But if you want to use it like a module, then install the package in your project using `npm` or `yarn`:
 
-### Convert
+```bash
+npm i @zeainc/zea-pointclouds
+## Or
+yarn add @zeainc/zea-pointclouds
+```
 
-Download [PotreeConverter](https://github.com/potree/PotreeConverter) and run it like this:
+### *Use it*
+```javascript
+import { PointCloudAsset } from '@zeainc/zea-pointclouds'
+// ...
+```
+</br>
+</br>
+</br>
 
-    ./PotreeConverter.exe C:/pointclouds/data.las -o C:/pointclouds/data_converted
+# Dependencies
+This plug-in depends on [ZeaEngine](https://docs.zea.live/zea-engine) and [ZeaUX](https://docs.zea.live/zea-ux). So, if you're using CDNs, make sure to import these two libraries before pointclouds.
+</br>
 
-Copy the converted directory into &lt;potreeDirectory&gt;/pointclouds/data_converted. Then, duplicate and rename one of the examples and modify the path in the html file to your own point cloud.
 
-## Downloads
+> For questions on licensing, please fill out the contact form on our website: [_zea.live_](https://www.zea.live/contact-us)
 
-[PotreeConverter source and Win64 binaries](https://github.com/potree/PotreeConverter/releases)
-
-## Showcase
-
-Take a look at the [potree showcase](http://potree.org/wp/demo/) for some live examples.
-
-## Compatibility
-
-| Browser              | OS      | Result        |   |
-| -------------------- |:-------:|:-------------:|:-:|
-| Chrome 64            | Win10   | works         |   |
-| Firefox 58           | Win10   | works         |   |
-| Edge                 | Win10   | not supported |   |
-| Internet Explorer 11 | Win7    | not supported |   |
-| Chrome               | Android | works         | Reduced functionality due to unsupported WebGL extensions |
-| Opera                | Android | works         | Reduced functionality due to unsupported WebGL extensions |
-
-## Credits
-
-* The multi-res-octree algorithms used by this viewer were developed at the Vienna University of Technology by Michael Wimmer and Claus Scheiblauer as part of the [Scanopy Project](http://www.cg.tuwien.ac.at/research/projects/Scanopy/).
-* [Three.js](https://github.com/mrdoob/three.js), the WebGL 3D rendering library on which potree is built.
-* [plas.io](http://plas.io/) point cloud viewer. LAS and LAZ support have been taken from the laslaz.js implementation of plas.io. Thanks to [Uday Verma](https://twitter.com/udaykverma) and [Howard Butler](https://twitter.com/howardbutler) for this!
-* [Harvest4D](https://harvest4d.org/) Potree currently runs as Master Thesis under the Harvest4D Project
-* Christian Boucheny (EDL developer) and Daniel Girardeau-Montaut ([CloudCompare](http://www.danielgm.net/cc/)). The EDL shader was adapted from the CloudCompare source code!
-* [Martin Isenburg](http://rapidlasso.com/), [Georepublic](http://georepublic.de/en/),
-[Veesus](http://veesus.com/), [Sigeom Sa](http://www.sigeom.ch/), [SITN](http://www.ne.ch/sitn), [LBI ArchPro](http://archpro.lbg.ac.at/),  [Pix4D](http://pix4d.com/) as well as all the contributers to potree and PotreeConverter and many more for their support.
+[npm]: https://badge.fury.io/js/%40zeainc%2Fzea-pointclouds.svg
+[npm-url]: https://www.npmjs.com/package/@zeainc/zea-pointclouds
+[build-size]: https://badgen.net/bundlephobia/minzip/@zeainc/zea-pointclouds
+[build-size-url]: https://bundlephobia.com/result?p=@zeainc/zea-pointclouds
+[npm-downloads]: https://img.shields.io/npm/dw/@zeainc/zea-pointclouds
+[npmtrends-url]: https://www.npmtrends.com/@zeainc/zea-pointclouds
