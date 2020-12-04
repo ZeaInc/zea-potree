@@ -1,7 +1,14 @@
 <a name="GLPointCloudPass"></a>
 
 ### GLPointCloudPass 
-GLPointCloudPass abstracts the rendering of cloud point geometries to the screen.**Parameters****MinimumNodeVSize(`NumberParameter`)****VisiblePointsTarget(`NumberParameter`)****Events*** *updated:* Triggers every time one of the Point Cloud Asset changes.
+GLPointCloudPass abstracts the rendering of cloud point geometries to the screen.
+
+**Parameters**
+**MinimumNodeVSize(`NumberParameter`)**
+**VisiblePointsTarget(`NumberParameter`)**
+
+**Events**
+* *updated:* Triggers every time one of the Point Cloud Asset changes.
 
 
 **Extends**: <code>GLPass</code>  
@@ -9,6 +16,8 @@ GLPointCloudPass abstracts the rendering of cloud point geometries to the screen
 * [GLPointCloudPass ⇐ <code>GLPass</code>](#GLPointCloudPass)
     * [new GLPointCloudPass()](#new-GLPointCloudPass)
     * [init(renderer, passIndex)](#init)
+    * [itemAddedToScene(treeItem, rargs) ⇒ <code>Boolean</code>](#itemAddedToScene)
+    * [itemRemovedFromScene(treeItem, rargs) ⇒ <code>Boolean</code>](#itemRemovedFromScene)
     * [addPotreeasset(pointcloudAsset)](#addPotreeasset)
     * [setViewport(viewport)](#setViewport)
     * [updateVisibilityStructures(priorityQueue) ⇒ <code>array</code>](#updateVisibilityStructures)
@@ -35,6 +44,35 @@ Initializes the rendering of the point cloud geometries hosted.
 | --- | --- | --- |
 | renderer | <code>GLRenderer</code> | The renderer param. |
 | passIndex | <code>number</code> | The passIndex param. |
+
+<a name="GLPointCloudPass+itemAddedToScene"></a>
+
+### itemAddedToScene
+The itemAddedToScene method is called on each pass when a new item
+is added to the scene, and the renderer must decide how to render it.
+It allows Passes to select geometries to handle the drawing of.
+
+
+**Returns**: <code>Boolean</code> - - The return value.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| treeItem | <code>TreeItem</code> | The treeItem value. |
+| rargs | <code>object</code> | Extra return values are passed back in this object. The object contains a parameter 'continueInSubTree', which can be set to false, so the subtree of this node will not be traversed after this node is handled. |
+
+<a name="GLPointCloudPass+itemRemovedFromScene"></a>
+
+### itemRemovedFromScene
+The itemRemovedFromScene method is called on each pass when aa item
+is removed to the scene, and the pass must handle cleaning up any resources.
+
+
+**Returns**: <code>Boolean</code> - - The return value.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| treeItem | <code>TreeItem</code> | The treeItem value. |
+| rargs | <code>object</code> | Extra return values are passed back in this object. |
 
 <a name="GLPointCloudPass+addPotreeasset"></a>
 
