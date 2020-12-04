@@ -1,14 +1,7 @@
 <a name="GLPointCloudPass"></a>
 
 ### GLPointCloudPass 
-GLPointCloudPass abstracts the rendering of cloud point geometries to the screen.
-
-**Parameters**
-**MinimumNodeVSize(`NumberParameter`)**
-**VisiblePointsTarget(`NumberParameter`)**
-
-**Events**
-* *updated:* Triggers every time one of the Point Cloud Asset changes.
+GLPointCloudPass abstracts the rendering of cloud point geometries to the screen.**Parameters****MinimumNodeVSize(`NumberParameter`)****VisiblePointsTarget(`NumberParameter`)****Events*** *updated:* Triggers every time one of the Point Cloud Asset changes.
 
 
 **Extends**: <code>GLPass</code>  
@@ -52,12 +45,12 @@ Adds a new point cloud asset the the list of assets rendered by this abstraction
 
 | Param | Type | Description |
 | --- | --- | --- |
-| pointcloudAsset | <code>[PointCloudAsset](api/Zea/PointCloudAsset.md)</code> | The pointcloudAsset value |
+| pointcloudAsset | <code>[PointCloudAsset](api/Zea\PointCloudAsset.md)</code> | The pointcloudAsset value |
 
 <a name="GLPointCloudPass+setViewport"></a>
 
 ### setViewport
-The setViewport method
+Sets viewport that is used by current abstraction.
 
 
 

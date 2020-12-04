@@ -2,6 +2,10 @@
 
 # Zea Point Clouds
 
+[![NPM Package][npm]][npm-url]
+[![Build Size][build-size]][build-size-url]
+[![NPM Downloads][npm-downloads]][npmtrends-url]
+
 > Point Clouds plug-in for Zea Engine
 
 <ul style="display:inline-block">
@@ -35,3 +39,11 @@ Reach
 <!-- background color -->
 
 ![color](#333333)
+
+
+[npm]: https://badge.fury.io/js/%40zeainc%2Fzea-pointclouds.svg
+[npm-url]: https://www.npmjs.com/package/@zeainc/zea-pointclouds
+[build-size]: https://badgen.net/bundlephobia/minzip/@zeainc/zea-pointclouds
+[build-size-url]: https://bundlephobia.com/result?p=@zeainc/zea-pointclouds
+[npm-downloads]: https://img.shields.io/npm/dw/@zeainc/zea-pointclouds
+[npmtrends-url]: https://www.npmtrends.com/@zeainc/zea-pointclouds

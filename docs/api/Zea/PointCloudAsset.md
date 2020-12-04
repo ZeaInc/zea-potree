@@ -1,16 +1,7 @@
 <a name="PointCloudAsset"></a>
 
 ### PointCloudAsset 
-PointCloudAsset is an application of Tree Items with rendering and material capabilities.
-In this case, it is an specification that supports Point clouds Octree geometries.
-
-**Parameters**
-*  **NumPoints(`NumberParameter`):** Sets the number of points in the octree geometry
-* **PointSize(`NumberParameter`):** Sets the size of the individual points inside the geometry
-* **PointSizeAttenuation(`NumberParameter`):**
-
-**Events**
-* **loaded:** Triggered after the asset is loaded
+PointCloudAsset is an application of Tree Items with rendering and material capabilities.In this case, it is an specification that supports Point clouds Octree geometries.**Parameters***  **Num Points(`NumberParameter`):** Sets the number of points in the octree geometry* **Point Size(`NumberParameter`):** Sets the size of the individual points inside the geometry* **Point Size Attenuation(`NumberParameter`):****Events*** **loaded:** Triggered after the asset is loaded
 
 
 **Extends**: <code>AssetItem</code>  

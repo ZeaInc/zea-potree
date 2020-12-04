@@ -8,9 +8,9 @@ import { POCLoader } from '../loader/POCLoader'
  * In this case, it is an specification that supports Point clouds Octree geometries.
  *
  * **Parameters**
- * *  **NumPoints(`NumberParameter`):** Sets the number of points in the octree geometry
- * * **PointSize(`NumberParameter`):** Sets the size of the individual points inside the geometry
- * * **PointSizeAttenuation(`NumberParameter`):**
+ * *  **Num Points(`NumberParameter`):** Sets the number of points in the octree geometry
+ * * **Point Size(`NumberParameter`):** Sets the size of the individual points inside the geometry
+ * * **Point Size Attenuation(`NumberParameter`):**
  *
  * **Events**
  * * **loaded:** Triggered after the asset is loaded
@@ -37,9 +37,9 @@ class PointCloudAsset extends AssetItem {
     //   this.loadPointCloud(path, name)
     // })
     // this.addParameter(new NumberParameter('Version', 0))
-    this.addParameter(new NumberParameter('NumPoints', 0))
-    this.addParameter(new NumberParameter('PointSize', 1))
-    this.addParameter(new NumberParameter('PointSizeAttenuation', 1.0))
+    this.addParameter(new NumberParameter('Num Points', 0))
+    this.addParameter(new NumberParameter('Point Size', 1))
+    this.addParameter(new NumberParameter('Point Size Attenuation', 1.0))
   }
 
   /**
@@ -82,7 +82,7 @@ class PointCloudAsset extends AssetItem {
     this.getParameter('GlobalXfo').setValue(xfo)
 
     // this.getParameter('Version').setValue(parseFloat(pcoGeometry.version));
-    if (pcoGeometry.numPoints) this.getParameter('NumPoints').setValue(pcoGeometry.numPoints)
+    if (pcoGeometry.numPoints) this.getParameter('Num Points').setValue(pcoGeometry.numPoints)
 
     // this._setBoundingBoxDirty()
 

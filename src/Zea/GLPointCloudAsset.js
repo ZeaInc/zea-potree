@@ -46,14 +46,14 @@ export class GLPointCloudAsset extends GLPass {
     })
 
     this.octreeSize = pointcloudAsset.pcoGeometry.boundingBox.size().x
-    this.pointSize = pointcloudAsset.getParameter('PointSize').getValue()
-    pointcloudAsset.getParameter('PointSize').on('valueChanged', () => {
-      this.pointSize = pointcloudAsset.getParameter('PointSize').getValue()
+    this.pointSize = pointcloudAsset.getParameter('Point Size').getValue()
+    pointcloudAsset.getParameter('Point Size').on('valueChanged', () => {
+      this.pointSize = pointcloudAsset.getParameter('Point Size').getValue()
       this.emit('updated')
     })
-    this.pointSizeAttenuation = pointcloudAsset.getParameter('PointSize Attenuation').getValue()
-    pointcloudAsset.getParameter('PointSize Attenuation').on('valueChanged', () => {
-      this.pointSizeAttenuation = pointcloudAsset.getParameter('PointSize').getValue()
+    this.pointSizeAttenuation = pointcloudAsset.getParameter('Point Size Attenuation').getValue()
+    pointcloudAsset.getParameter('Point Size Attenuation').on('valueChanged', () => {
+      this.pointSizeAttenuation = pointcloudAsset.getParameter('Point Size').getValue()
       this.emit('updated')
     })
 
