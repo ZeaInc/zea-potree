@@ -1,14 +1,7 @@
 <a name="GLPointCloudPass"></a>
 
 ### GLPointCloudPass 
-GLPointCloudPass abstracts the rendering of cloud point geometries to the screen.
-
-**Parameters**
-**MinimumNodeVSize(`NumberParameter`)**
-**VisiblePointsTarget(`NumberParameter`)**
-
-**Events**
-* *updated:* Triggers every time one of the Point Cloud Asset changes.
+GLPointCloudPass abstracts the rendering of cloud point geometries to the screen.**Parameters****MinimumNodeVSize(`NumberParameter`)****VisiblePointsTarget(`NumberParameter`)****Events*** *updated:* Triggers every time one of the Point Cloud Asset changes.
 
 
 **Extends**: <code>GLPass</code>  
@@ -48,9 +41,7 @@ Initializes the rendering of the point cloud geometries hosted.
 <a name="GLPointCloudPass+itemAddedToScene"></a>
 
 ### itemAddedToScene
-The itemAddedToScene method is called on each pass when a new item
-is added to the scene, and the renderer must decide how to render it.
-It allows Passes to select geometries to handle the drawing of.
+The itemAddedToScene method is called on each pass when a new itemis added to the scene, and the renderer must decide how to render it.It allows Passes to select geometries to handle the drawing of.
 
 
 **Returns**: <code>Boolean</code> - - The return value.  
@@ -63,8 +54,7 @@ It allows Passes to select geometries to handle the drawing of.
 <a name="GLPointCloudPass+itemRemovedFromScene"></a>
 
 ### itemRemovedFromScene
-The itemRemovedFromScene method is called on each pass when aa item
-is removed to the scene, and the pass must handle cleaning up any resources.
+The itemRemovedFromScene method is called on each pass when aa itemis removed to the scene, and the pass must handle cleaning up any resources.
 
 
 **Returns**: <code>Boolean</code> - - The return value.  
