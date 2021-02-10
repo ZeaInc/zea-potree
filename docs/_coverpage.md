@@ -34,6 +34,8 @@ Reach
 </li>
 </ul>
 
+![potree](_media/entwine-logo.png)
+
 [Get Started](README.md)
 
 <!-- background color -->
