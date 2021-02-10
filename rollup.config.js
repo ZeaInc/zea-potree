@@ -21,7 +21,7 @@ export default [
     input: 'src/zea/index.js',
     external,
     output: {
-      name: 'zeaPointClouds',
+      name: 'zeaPotree',
       file: pkg.browser,
       format: 'umd',
       sourcemap,

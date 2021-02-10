@@ -20,24 +20,24 @@ These docs allow developers to get started with the Zea UX by downloading free a
 </br>
 
 # Licensing
-The Zea pointclouds in is under a [`MIT`](https://en.wikipedia.org/wiki/MIT_License) license.
+The Zea Potree in is under a [`MIT`](https://en.wikipedia.org/wiki/MIT_License) license.
 </br>
 </br>
 </br>
 
 # Add it to your project
-The process to add Zea pointclouds to your projects is easy. 
+The process to add Zea Potree to your projects is easy. 
 
 ## *Using CDNs*
 For static websites or quick implementation you can always use CDNs like JsDelivr or Unpkg:
 
 ### *JsDelivr*
 ```html
-<script crossorigin src="https://cdn.jsdelivr.net/npm/@zeainc/zea-pointclouds/dist/index.umd.min.js"></script>
+<script crossorigin src="https://cdn.jsdelivr.net/npm/@zeainc/zea-potree/dist/index.umd.min.js"></script>
 ```
 ### *Unpkg*
 ```html
-<script crossorigin src="https://unpkg.com/@zeainc/zea-pointclouds/dist/index.umd.js"></script>
+<script crossorigin src="https://unpkg.com/@zeainc/zea-potree/dist/index.umd.js"></script>
 ```
 ### *Use it*
 ```html
@@ -46,20 +46,6 @@ For static websites or quick implementation you can always use CDNs like JsDeliv
 </script>
 ```
 
-## *As a Module*
-But if you want to use it like a module, then install the package in your project using `npm` or `yarn`:
-
-```bash
-npm i @zeainc/zea-pointclouds
-## Or
-yarn add @zeainc/zea-pointclouds
-```
-
-### *Use it*
-```javascript
-import { PointCloudAsset } from '@zeainc/zea-pointclouds'
-// ...
-```
 </br>
 </br>
 </br>
