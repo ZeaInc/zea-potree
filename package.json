@@ -1,10 +1,10 @@
 {
-  "name": "@zeainc/zea-pointclouds",
-  "filename": "zea-pointclouds.js",
-  "library": "ZeaPointClouds",
+  "name": "@zeainc/zea-potree",
+  "filename": "zea-potree",
+  "library": "ZeaPotree",
   "private": false,
-  "version": "3.0.1",
-  "description": "Large point cloud rendering extension for Zea Engine",
+  "version": "3.1.0",
+  "description": "Zea Potree is a plug-in for Zea Engine that enables rendering of large point clouds .",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
@@ -13,6 +13,7 @@
   ],
   "keywords": [
     "Zea",
+    "Potree",
     "Point clouds"
   ],
   "scripts": {

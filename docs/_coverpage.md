@@ -1,12 +1,12 @@
 ![logo](_media/logo-zea.svg)
 
-# Zea Point Clouds
+# Zea Potree
 
 [![NPM Package][npm]][npm-url]
 [![Build Size][build-size]][build-size-url]
 [![NPM Downloads][npm-downloads]][npmtrends-url]
 
-> Point Clouds plug-in for Zea Engine
+> A plugin for Zea Engine, based on Potree for displaying large Point Clouds
 
 <ul style="display:inline-block">
 
@@ -14,7 +14,7 @@
 
 ![power](_media/icon-power.svg)
 
-Power
+Performance
 
 </li>
 

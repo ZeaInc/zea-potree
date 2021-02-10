@@ -1,5 +1,6 @@
 - Tutorials
 
+* [Processing Point Clouds](tutorials/process-a-point-cloud.md)
 * [Load A Point Cloud](tutorials/load-a-point-cloud.md)
 
 - API Reference
