@@ -557,7 +557,7 @@ class GLPointCloudPass extends GLPass {
     this.glpointcloudAssets.forEach((a, index) => {
       const { passId, assetId } = renderstate.unifs
       if (passId) {
-        gl.uniform1i(passId.location, this.__passIndex)
+        gl.uniform1i(passId.location, this.passIndex)
       }
       if (assetId) {
         gl.uniform1i(assetId.location, index)
