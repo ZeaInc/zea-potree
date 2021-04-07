@@ -3,7 +3,6 @@
 [![NPM Package][npm]][npm-url]
 [![Build Size][build-size]][build-size-url]
 [![NPM Downloads][npm-downloads]][npmtrends-url]
-![Discourse topics](https://img.shields.io/discourse/topics?color=f9ce03&label=Community&logo=Zea&logoColor=2d2d2d&server=https%3A%2F%2Fcommunity.zea.live%2F)
 
 # Introduction
 Zea Point Clouds is a plug-in for [Zea Engine](https://docs.zea.live/zea-engine) that enables large point clouds rendering. It is based on [Potree](https://github.com/potree/potree/) with modifications to integrate into the [Zea Engine](https://docs.zea.live/zea-engine) Framework.
