@@ -6,7 +6,7 @@
 [![Build Size][build-size]][build-size-url]
 [![NPM Downloads][npm-downloads]][npmtrends-url]
 
-> A plugin for Zea Engine, based on Potree for displaying large Point Clouds
+> A plugin for [Zea Engine](https://docs.zea.live/zea-engine/#/), based on Potree for displaying large Point Clouds
 
 <ul style="display:inline-block">
 
@@ -14,7 +14,7 @@
 
 ![power](_media/icon-power.svg)
 
-Performance
+Fast
 
 </li>
 
@@ -22,14 +22,14 @@ Performance
 
 ![versatility](_media/icon-versatility.svg)
 
-Versatility
+Easy
 
 </li>
 <li style="display:inline-block; padding:20px;">
 
 ![reach](_media/icon-reach.svg)
 
-Reach
+Open
 
 </li>
 </ul>
