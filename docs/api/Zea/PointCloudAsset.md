@@ -1,7 +1,16 @@
 <a name="PointCloudAsset"></a>
 
 ### PointCloudAsset 
-PointCloudAsset is an application of Tree Items with rendering and material capabilities.In this case, it is an specification that supports Point clouds Octree geometries.**Parameters***  **Num Points(`NumberParameter`):** Sets the number of points in the octree geometry* **Point Size(`NumberParameter`):** Sets the size of the individual points inside the geometry* **Point Size Attenuation(`NumberParameter`):****Events*** **loaded:** Triggered after the asset is loaded
+PointCloudAsset is an application of Tree Items with rendering and material capabilities.
+In this case, it is an specification that supports Point clouds Octree geometries.
+
+**Parameters**
+*  **Num Points(`NumberParameter`):** Sets the number of points in the octree geometry
+* **Point Size(`NumberParameter`):** Sets the size of the individual points inside the geometry
+* **Point Size Attenuation(`NumberParameter`):**
+
+**Events**
+* **loaded:** Triggered after the asset is loaded
 
 
 **Extends**: <code>AssetItem</code>  
@@ -21,7 +30,7 @@ Creates an instance of PointCloudAsset.
 <a name="PointCloudAsset+getGlobalMat4"></a>
 
 ### getGlobalMat4
-The getGlobalMat4 method
+The getGlobalMat4 method.
 
 
 **Returns**: <code>Mat4</code> - - The global Mat4  
@@ -39,7 +48,7 @@ Sets asset's Point Cloud Geometry data.
 <a name="PointCloudAsset+getGeometry"></a>
 
 ### getGeometry
-Returns asset's point cloud Octree geometry
+Returns asset's point cloud Octree geometry.
 
 
 **Returns**: <code>PointCloudOctreeGeometry</code> - - The pcoGeometry  
