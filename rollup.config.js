@@ -1,11 +1,12 @@
 import { terser } from 'rollup-plugin-terser'
+import json from '@rollup/plugin-json'
 import webWorkerLoader from 'rollup-plugin-web-worker-loader'
 
 import pkg from './package.json'
 
 const external = ['@zeainc/zea-engine']
 
-const plugins = [webWorkerLoader()]
+const plugins = [json(), webWorkerLoader()]
 
 const isProduction = !process.env.ROLLUP_WATCH
 
