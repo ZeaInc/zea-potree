@@ -3,7 +3,7 @@
   "filename": "zea-potree",
   "library": "ZeaPotree",
   "private": false,
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Zea Potree is a plug-in for Zea Engine that enables rendering of large point clouds .",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",

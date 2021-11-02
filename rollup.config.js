@@ -6,7 +6,7 @@ import pkg from './package.json'
 
 const external = ['@zeainc/zea-engine']
 
-const plugins = [json(), webWorkerLoader((targetPlatform: 'browser'))]
+const plugins = [json(), webWorkerLoader({ targetPlatform: 'browser' })]
 
 const isProduction = !process.env.ROLLUP_WATCH
 
