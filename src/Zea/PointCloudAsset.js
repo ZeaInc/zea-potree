@@ -24,6 +24,10 @@ class PointCloudAsset extends AssetItem {
   constructor() {
     super()
 
+    this.numPointsParam = new NumberParameter('Num Points', 0)
+    this.pointSizeParam = new NumberParameter('Point Size', 1)
+    this.pointSizeAttenuationParam = new NumberParameter('Point Size Attenuation', 1.0)
+
     this.pointBudget = 5 * 1000 * 100
     this.minimumNodeVSize = 0.2 // Size, not in pixels, but a fraction of screen V height.
     this.level = 0
@@ -37,9 +41,9 @@ class PointCloudAsset extends AssetItem {
     //   this.loadPointCloud(path, name)
     // })
     // this.addParameter(new NumberParameter('Version', 0))
-    this.addParameter(new NumberParameter('Num Points', 0))
-    this.addParameter(new NumberParameter('Point Size', 1))
-    this.addParameter(new NumberParameter('Point Size Attenuation', 1.0))
+    this.addParameter(this.numPointsParam)
+    this.addParameter(this.pointSizeParam)
+    this.addParameter(this.pointSizeAttenuationParam)
   }
 
   /**
@@ -48,7 +52,7 @@ class PointCloudAsset extends AssetItem {
    * @return {Mat4} - The global Mat4
    */
   getGlobalMat4() {
-    return this.getParameter('GlobalXfo').getValue().toMat4()
+    return this.globalXfoParam.value.toMat4()
   }
 
   /**
@@ -77,12 +81,12 @@ class PointCloudAsset extends AssetItem {
   setGeometry(pcoGeometry) {
     this.pcoGeometry = pcoGeometry
 
-    const xfo = this.getParameter('GlobalXfo').getValue()
+    const xfo = this.globalXfoParam.value
     xfo.tr = this.pcoGeometry.offset
-    this.getParameter('GlobalXfo').setValue(xfo)
+    this.globalXfoParam.value = xfo
 
     // this.getParameter('Version').setValue(parseFloat(pcoGeometry.version));
-    if (pcoGeometry.numPoints) this.getParameter('Num Points').setValue(pcoGeometry.numPoints)
+    if (pcoGeometry.numPoints) this.numPointsParam.value = pcoGeometry.numPoints
 
     // this._setBoundingBoxDirty()
 
@@ -102,7 +106,6 @@ class PointCloudAsset extends AssetItem {
     return this.pcoGeometry
   }
 
-  // // Load and add point cloud to scene
   /**
    * Loads a Point Cloud Octree Geometry from the specified url.
    *
@@ -110,7 +113,7 @@ class PointCloudAsset extends AssetItem {
    * @param {string} name - The name value
    * @return {Promise} - The result
    */
-  loadPointCloud(path, name) {
+  load(path) {
     return new Promise((resolve, reject) => {
       POCLoader.load(path, (geometry) => {
         if (!geometry) {
@@ -121,6 +124,10 @@ class PointCloudAsset extends AssetItem {
         }
       })
     })
+  }
+
+  loadPointCloud(path, name) {
+    return this.load(path)
   }
 }
 

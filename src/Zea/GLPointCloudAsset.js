@@ -30,7 +30,7 @@ export class GLPointCloudAsset extends GLPass {
     this.gl = gl
     this.pointcloudAsset = pointcloudAsset
 
-    const xfoParam = pointcloudAsset.getParameter('GlobalXfo')
+    const xfoParam = pointcloudAsset.globalXfoParam
     const updateXfo = () => {
       const xfo = xfoParam.getValue()
       this.spacing = pointcloudAsset.pcoGeometry.spacing * Math.max(xfo.sc.x, xfo.sc.y, xfo.sc.z)
@@ -45,15 +45,15 @@ export class GLPointCloudAsset extends GLPass {
       this.emit('updated')
     })
 
-    this.octreeSize = pointcloudAsset.pcoGeometry.boundingBox.size().x
-    this.pointSize = pointcloudAsset.getParameter('Point Size').getValue()
-    pointcloudAsset.getParameter('Point Size').on('valueChanged', () => {
-      this.pointSize = pointcloudAsset.getParameter('Point Size').getValue()
+    this.octreeSize = pointcloudAsset.pcoGeometry.boundingBox.diagonal().x
+    this.pointSize = pointcloudAsset.pointSizeParam.getValue()
+    pointcloudAsset.pointSizeParam.on('valueChanged', () => {
+      this.pointSize = pointcloudAsset.pointSizeParam.getValue()
       this.emit('updated')
     })
-    this.pointSizeAttenuation = pointcloudAsset.getParameter('Point Size Attenuation').getValue()
-    pointcloudAsset.getParameter('Point Size Attenuation').on('valueChanged', () => {
-      this.pointSizeAttenuation = pointcloudAsset.getParameter('Point Size').getValue()
+    this.pointSizeAttenuation = pointcloudAsset.pointSizeAttenuationParam.getValue()
+    pointcloudAsset.pointSizeAttenuationParam.on('valueChanged', () => {
+      this.pointSizeAttenuation = pointcloudAsset.pointSizeAttenuationParam.getValue()
       this.emit('updated')
     })
 

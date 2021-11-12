@@ -220,7 +220,7 @@ class GLPointCloudPass extends GLPass {
    */
   updateVisibilityStructures(priorityQueue) {
     const camera = this.viewport.getCamera()
-    const view = camera.getParameter('GlobalXfo').getValue().toMat4()
+    const view = camera.globalXfoParam.value.toMat4()
     const viewI = this.viewport.getViewMatrix()
     const proj = this.viewport.getProjectionMatrix()
     const viewProj = proj.multiply(viewI)
@@ -305,6 +305,7 @@ class GLPointCloudPass extends GLPass {
       // add child nodes to priorityQueue
       const camObjPos = result[index].camObjPos
       const children = node.getChildren()
+      const fov = camera.getFov()
       for (let i = 0; i < children.length; i++) {
         const child = children[i]
 
@@ -316,7 +317,6 @@ class GLPointCloudPass extends GLPass {
           if (distance - radius < 0) {
             weight = Number.MAX_VALUE
           } else {
-            const fov = camera.getFov()
             const slope = Math.tan(fov / 2)
 
             const projFactor = 0.5 / (slope * distance)

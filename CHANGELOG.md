@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/ZeaInc/zea-potree/compare/v3.2.0...v4.0.0) (2021-11-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* Migrated to zea-engine 4.0.0
+
+### Bug Fixes
+
+* Fixed issue preventing zea-potree from working with bundlers. ([2152742](https://github.com/ZeaInc/zea-potree/commit/2152742a8c10d279c6a67aea8f21c27055c13e1c))
+
+
+* Migrated to zea-engine 4.0.0 ([4fcf948](https://github.com/ZeaInc/zea-potree/commit/4fcf948fdc184907813523f613ee6d84c3202cae))
+
+### [3.2.2](https://github.com/ZeaInc/zea-potree/compare/v3.2.0...v3.2.2) (2021-11-12)
+
+
+### Bug Fixes
+
+* Fixed issue preventing zea-potree from working with bundlers. ([2152742](https://github.com/ZeaInc/zea-potree/commit/2152742a8c10d279c6a67aea8f21c27055c13e1c))
+
 ### [3.0.1] (2020-12-04)
 
 ## [3.0.0] (2020-12-04)
