@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/ZeaInc/zea-pointclouds/compare/v4.0.0...v4.0.1) (2022-02-07)
+
+
+### Bug Fixes
+
+* Move Engine to dev dependencies ([f1b3243](https://github.com/ZeaInc/zea-pointclouds/commit/f1b324335ad81c102b36042ae2e472f5cec55007))
+
 ## [4.0.0](https://github.com/ZeaInc/zea-potree/compare/v3.2.0...v4.0.0) (2021-11-12)
 
 
