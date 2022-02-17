@@ -12,7 +12,7 @@ Zea Point Clouds is a plug-in for [Zea Engine](https://docs.zea.live/zea-engine)
 
 # Documentation
 Full documentation with concepts, tutorials, live examples, API documentation and more; can be found at the zea ux docs site:
-[https://docs.zea.live/zea-pointclouds](https://docs.zea.live/zea-pointclouds)
+[https://docs.zea.live/zea-potree/](https://docs.zea.live/zea-potree/)
 
 These docs allow developers to get started with the Zea UX by downloading free and open-source demo content and using Zea's publicly distributed client-side libraries.
 </br>
