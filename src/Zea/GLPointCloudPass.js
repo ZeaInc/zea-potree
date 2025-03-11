@@ -76,12 +76,12 @@ class GLPointCloudPass extends GLPass {
     for (let i = 0; i < size * 4; i++) data[i] = 255
 
     this.visibleNodesTexture = new GLTexture2D(gl, {
-      format: 'RGBA',
-      type: 'UNSIGNED_BYTE',
+      format: gl.RGBA,
+      type: gl.UNSIGNED_BYTE,
       width: size,
       height: 1,
-      filter: 'NEAREST',
-      wrap: 'CLAMP_TO_EDGE',
+      filter: gl.NEAREST,
+      wrap: gl.CLAMP_TO_EDGE,
       mipMapped: false,
       data,
     })

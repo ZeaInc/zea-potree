@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Zea UX</title>
+    <title>Zea PoTree</title>
     <style>
       html,
       body,
@@ -35,7 +35,6 @@
       })
 
       renderer.setScene(scene)
-      renderer.resumeDrawing()
 
       ////////////////////////////////////
       // Point Cloud renderer
@@ -43,13 +42,17 @@
       renderer.addPass(pointcloudPass, PassType.OPAQUE)
 
       const pointcloudAsset = new PointCloudAsset()
-      const pointClouudUrl =
-        'https://storage.googleapis.com/visualive-tmp/CNA/Old_Aguathuna_Ship_Loading_Area-Medium_Density_Cloud2/cloud.js'
+      const pointClouudUrl = 'https://storage.googleapis.com/zea-demo-resources/NavVisHQ/cloud.js'
       pointcloudAsset.loadPointCloud(pointClouudUrl, 'PointCloud').then((e) => {
         renderer.frameAll()
       })
       scene.getRoot().addChild(pointcloudAsset)
 
+      renderer.getViewport().on('keyDown', (event) => {
+        if (event.key == 'f') {
+          renderer.frameAll(0, 100)
+        }
+      })
       // {{{ Messages handler.
       const handleMessage = (event) => {
         const { data } = event

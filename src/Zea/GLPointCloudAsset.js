@@ -1,4 +1,4 @@
-import { GLPoints, GLPass } from '@zeainc/zea-engine'
+import { GLPoints, GLPass, generateShaderGeomBinding } from '@zeainc/zea-engine'
 
 let globalCounter = 0
 
@@ -16,6 +16,27 @@ class GLOctTreeNode extends GLPoints {
 
   get numPoints() {
     return this.node.numPoints
+  }
+
+  bind(renderstate) {
+    if (this.buffersDirty) this.updateBuffers(renderstate)
+
+    let shaderBinding = this.shaderBindings[renderstate.shaderkey]
+    if (!shaderBinding) {
+      // Merge the points attrs with the quad attrs.
+      const attrbuffers = Object.assign(this.glattrbuffers, renderstate.shaderInstancedGeom.attrBuffers)
+
+      shaderBinding = generateShaderGeomBinding(
+        this.__gl,
+        renderstate.attrs,
+        attrbuffers,
+        renderstate.shaderInstancedGeom.indexBuffer
+      )
+      this.shaderBindings[renderstate.shaderkey] = shaderBinding
+    }
+    shaderBinding.bind(renderstate)
+
+    return true
   }
 
   dispose() {

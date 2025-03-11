@@ -3,7 +3,7 @@ import { PointCloudTreeNode } from './PointCloudTree.js'
 import { XHRFactory } from './XHRFactory.js'
 import { Utils } from './utils.js'
 
-import { Points, RGBA, Vec3, Box3, ColorAttribute } from '@zeainc/zea-engine'
+import { Points, RGBA, Vec3, Box3, ColorAttribute, Vec3Attribute } from '@zeainc/zea-engine'
 
 // A global count of the number of nodes loading.
 let numNodesLoading = 0
@@ -156,9 +156,11 @@ export class PointCloudOctreeGeometryNode extends PointCloudTreeNode {
       const buffer = buffers[property].buffer
       const propertyId = parseInt(property)
       if (propertyId === PointAttributeNames.POSITION_CARTESIAN) {
-        const attr = points.getVertexAttribute('positions')
+        // const attr = points.getVertexAttribute('positions')
+        const attr = new Vec3Attribute()
         attr.data = new Float32Array(buffer)
         points.setNumVertices(attr.getCount())
+        points.addVertexAttribute('positions', attr)
       } else if (propertyId === PointAttributeNames.COLOR_PACKED) {
         const colorsAttr = new ColorAttribute()
         colorsAttr.dataTypeName = 'RGBA'

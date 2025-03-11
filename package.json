@@ -45,10 +45,8 @@
   "author": "Philip Taylor",
   "license": "MIT",
   "devDependencies": {
-    "@percy/cypress": "^2.3.1",
     "@zeainc/jsdocs2md": "^0.0.7",
-    "@zeainc/zea-engine": "^4.0.0",
-    "cypress": "^5.0.0",
+    "@zeainc/zea-engine": "^4.15.0",
     "docsify-cli": "^4.4.1",
     "es-dev-server": "^2.1.0",
     "eslint": "^7.7.0",

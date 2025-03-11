@@ -35,11 +35,6 @@ class PointCloudAsset extends AssetItem {
 
     this.loaded = false
 
-    // this.fileParam = this.addParameter(new FilePathParameter('File'))
-    // this.fileParam.on('valueChanged', () => {
-    //   this.loaded.untoggle()
-    //   this.loadPointCloud(path, name)
-    // })
     // this.addParameter(new NumberParameter('Version', 0))
     this.addParameter(this.numPointsParam)
     this.addParameter(this.pointSizeParam)
@@ -56,14 +51,14 @@ class PointCloudAsset extends AssetItem {
   }
 
   /**
-   * The _cleanBoundingBox method
+   * The cleanBoundingBox method
    *
    * @param {Box3} bbox -
    * @return {Box3} - The cleaned bounding box
    * @private
    */
-  _cleanBoundingBox(bbox) {
-    bbox = super._cleanBoundingBox(bbox)
+  cleanBoundingBox(bbox) {
+    bbox = super.cleanBoundingBox(bbox)
     const mat4 = this.getGlobalMat4()
     const geomBox = new Box3()
     const { min, max } = this.pcoGeometry.tightBoundingBox
