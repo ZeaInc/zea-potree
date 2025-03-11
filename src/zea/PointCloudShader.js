@@ -175,6 +175,7 @@ void main(void) {
   v_logDepth = log2(v_viewPos.z);
 
   gl_Position = projectionMatrix * viewPos;
+  gl_PointSize = 10.0;
 
 //   gl_PointSize = PointSize;
 
@@ -218,6 +219,27 @@ void main(void) {
 }
 `
     )
+  }
+
+  bind(renderstate, key) {
+    if (super.bind(renderstate, key)) {
+      renderstate.supportsInstancing = false
+
+      const gl = this.__gl
+      if (!gl.__quadVertexIdsBuffer) gl.setupInstancedQuad()
+
+      renderstate.shaderInstancedGeom = {
+        attrBuffers: gl.__quadattrbuffers,
+        indexBuffer: gl.__quadIndexBuffer,
+        indexDataType: gl.UNSIGNED_BYTE,
+        numVertices: 4,
+        numTriIndices: 6,
+      }
+
+      renderstate.supportsInstancing = false
+      return true
+    }
+    return false
   }
 
   static getGeomDataShaderName() {
